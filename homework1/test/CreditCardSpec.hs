@@ -1,6 +1,9 @@
 module CreditCardSpec (spec) where
 
-import CreditCard (toDigitsRev)
+import CreditCard
+  ( toDigits,
+    toDigitsRev,
+  )
 import Test.Hspec
 
 spec :: Spec
@@ -14,3 +17,7 @@ spec = do
 
     it "should return [] when given negative numbers" $ do
       toDigitsRev (-17) `shouldBe` []
+
+  describe "toDigits" $ do
+    it "should return [] when given 0" $ do
+      toDigits 0 `shouldBe` []
