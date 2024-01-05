@@ -58,6 +58,7 @@ test-suite homework1-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      CreditCardSpec
       Paths_homework1
   autogen-modules:
       Paths_homework1
@@ -68,4 +69,5 @@ test-suite homework1-test
       base >=4.7 && <5
     , homework1
     , hspec
+    , hspec-discover
   default-language: Haskell2010
