@@ -2,6 +2,9 @@ module LogAnalysis
   ( parseMessage,
     parse,
     insert,
+    build,
+    inOrder,
+    whatWentWrong,
   )
 where
 
@@ -25,3 +28,21 @@ insert logMsg Leaf = Node Leaf logMsg Leaf
 insert logMsg@(LogMessage _ timestamp _) (Node leftTree nodeLog@(LogMessage _ nodeTimeStamp _) rightTree)
   | timestamp < nodeTimeStamp = Node (insert logMsg leftTree) nodeLog rightTree
   | otherwise = Node leftTree nodeLog (insert logMsg rightTree)
+
+build :: [LogMessage] -> MessageTree
+build = foldr insert Leaf
+
+inOrder :: MessageTree -> [LogMessage]
+inOrder Leaf = []
+inOrder (Node leftTree logMsg rightTree) = inOrder leftTree ++ logMsg : inOrder rightTree
+
+isSevereError :: LogMessage -> Bool
+isSevereError (LogMessage (Error level) _ _) = level >= 50
+isSevereError _ = False
+
+getMessage :: LogMessage -> String
+getMessage (LogMessage _ _ str) = str
+getMessage (Unknown _) = ""
+
+whatWentWrong :: [LogMessage] -> [String]
+whatWentWrong = map getMessage . filter isSevereError . inOrder . build
