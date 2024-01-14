@@ -1,6 +1,7 @@
 module LogAnalysis
   ( parseMessage,
     parse,
+    insert,
   )
 where
 
@@ -17,3 +18,10 @@ parseMessage str = case splitedWords of
 
 parse :: String -> [LogMessage]
 parse = map parseMessage . lines
+
+insert :: LogMessage -> MessageTree -> MessageTree
+insert (Unknown _) tree = tree
+insert logMsg Leaf = Node Leaf logMsg Leaf
+insert logMsg@(LogMessage _ timestamp _) (Node leftTree nodeLog@(LogMessage _ nodeTimeStamp _) rightTree)
+  | timestamp < nodeTimeStamp = Node (insert logMsg leftTree) nodeLog rightTree
+  | otherwise = Node leftTree nodeLog (insert logMsg rightTree)
