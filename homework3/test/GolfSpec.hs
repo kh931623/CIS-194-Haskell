@@ -1,7 +1,8 @@
 module GolfSpec (spec) where
 
 import Golf
-  ( skips,
+  ( localMaxima,
+    skips,
   )
 import Test.Hspec
 
@@ -19,3 +20,10 @@ spec = do
 
     it "should return [] when given []" $ do
       skips emptyList `shouldBe` []
+
+  describe "localMaxima" $ do
+    it "should return  [9,6] when given  [2,9,5,6,1]" $ do
+      localMaxima [2, 9, 5, 6, 1] `shouldBe` [9, 6]
+
+    it "should return [4] when given [2,3,4,1,5]" $ do
+      localMaxima [2, 3, 4, 1, 5] `shouldBe` [4]
