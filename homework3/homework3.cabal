@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Golf
       Lib
       Utils
   other-modules:
@@ -56,6 +57,7 @@ test-suite homework3-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      GolfSpec
       UtilsSpec
       Paths_homework3
   autogen-modules:
