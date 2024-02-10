@@ -2,10 +2,12 @@ module WholemealSpec (spec) where
 
 import Test.Hspec
 import Wholemeal
-  ( fun1,
+  ( Tree (Leaf, Node),
+    fun1,
     fun1',
     fun2,
     fun2',
+    insert,
     map',
     xor,
   )

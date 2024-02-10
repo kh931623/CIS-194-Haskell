@@ -6,6 +6,9 @@ module Wholemeal
     compute,
     xor,
     map',
+    foldTree,
+    insert,
+    Tree (Leaf, Node),
   )
 where
 
@@ -42,3 +45,21 @@ xor = foldl1 singleXor
 
 map' :: (a -> b) -> [a] -> [b]
 map' f = foldr (\x xs -> f x : xs) []
+
+data Tree a
+  = Leaf
+  | Node Integer (Tree a) a (Tree a)
+  deriving (Show, Eq)
+
+insert :: a -> Tree a -> Tree a
+insert n Leaf = Node 0 Leaf n Leaf
+insert n (Node _ leftTree val Leaf) = Node 1 leftTree val (insert n Leaf)
+insert n (Node level Leaf val rightNode) = Node level (insert n Leaf) val rightNode
+insert n (Node level leftNode@(Node leftLevel _ _ _) val rightNode@(Node rightLevel _ _ _))
+  | rightLevel == leftLevel = Node (newRightLevel + 1) leftNode val newRightNode
+  | otherwise = Node level (insert n leftNode) val rightNode
+  where
+    newRightNode@(Node newRightLevel _ _ _) = insert n rightNode
+
+foldTree :: [a] -> Tree a
+foldTree = foldr insert Leaf
