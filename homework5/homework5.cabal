@@ -25,7 +25,10 @@ source-repository head
 
 library
   exposed-modules:
+      Calc
+      ExprT
       Lib
+      Parser
   other-modules:
       Paths_homework5
   autogen-modules:
@@ -55,6 +58,7 @@ test-suite homework5-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      CalcSpec
       Paths_homework5
   autogen-modules:
       Paths_homework5
@@ -64,4 +68,6 @@ test-suite homework5-test
   build-depends:
       base >=4.7 && <5
     , homework5
+    , hspec
+    , hspec-discover
   default-language: Haskell2010
