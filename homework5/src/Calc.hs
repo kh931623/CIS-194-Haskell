@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Calc
   ( eval,
     evalStr,
@@ -8,6 +10,7 @@ module Calc
   )
 where
 
+import qualified Data.Map as M
 import ExprT
 import Parser (parseExp)
 
@@ -69,3 +72,22 @@ testBool = testExp :: Maybe Bool
 testMinMax = testExp :: Maybe MinMax
 
 testMod7 = testExp :: Maybe Mod7
+
+-- exercise 6
+class HasVars a where
+  var :: String -> a
+
+data VarExprT
+  = VLit Integer
+  | VAdd VarExprT VarExprT
+  | VMul VarExprT VarExprT
+  | Var String
+  deriving (Show, Eq)
+
+instance HasVars VarExprT where
+  var = Var
+
+instance Expr VarExprT where
+  lit = VLit
+  add = VAdd
+  mul = VMul
