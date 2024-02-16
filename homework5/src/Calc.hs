@@ -7,6 +7,9 @@ module Calc
     testBool,
     testMinMax,
     testMod7,
+    withVars,
+    Expr (lit, add, mul),
+    HasVars (var),
   )
 where
 
@@ -91,3 +94,31 @@ instance Expr VarExprT where
   lit = VLit
   add = VAdd
   mul = VMul
+
+instance HasVars (M.Map String Integer -> Maybe Integer) where
+  -- original implementation
+  -- var str = \m -> (if M.member str m then Just $ m M.! str else Nothing)
+
+  -- something I saw on the internet
+  var = M.lookup
+
+addMaybe :: Maybe Integer -> Maybe Integer -> Maybe Integer
+addMaybe Nothing _ = Nothing
+addMaybe _ Nothing = Nothing
+addMaybe (Just a) (Just b) = Just $ a + b
+
+multiplyMaybe :: Maybe Integer -> Maybe Integer -> Maybe Integer
+multiplyMaybe Nothing _ = Nothing
+multiplyMaybe _ Nothing = Nothing
+multiplyMaybe (Just a) (Just b) = Just $ a * b
+
+instance Expr (M.Map String Integer -> Maybe Integer) where
+  lit n = \_ -> Just n
+  add f1 f2 = \m -> addMaybe (f1 m) (f2 m)
+  mul f1 f2 = \m -> multiplyMaybe (f1 m) (f2 m)
+
+withVars ::
+  [(String, Integer)] ->
+  (M.Map String Integer -> Maybe Integer) ->
+  Maybe Integer
+withVars vs exp = exp $ M.fromList vs
