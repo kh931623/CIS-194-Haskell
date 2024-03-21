@@ -4,6 +4,7 @@ module Stream
     streamRepeat,
     streamMap,
     streamFromSeed,
+    nats,
   )
 where
 
@@ -25,3 +26,9 @@ streamFromSeed :: (a -> a) -> a -> Stream a
 streamFromSeed f seed = C seed (streamFromSeed f nextSeed)
   where
     nextSeed = f seed
+
+nats :: Stream Integer
+nats = streamFromSeed (1 +) 0
+
+-- ruler :: Stream Integer
+-- ruler = streamMap compute nats
