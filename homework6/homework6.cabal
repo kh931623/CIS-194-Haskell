@@ -27,6 +27,7 @@ library
   exposed-modules:
       Fibonacci
       Lib
+      Stream
   other-modules:
       Paths_homework6
   autogen-modules:

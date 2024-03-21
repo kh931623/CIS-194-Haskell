@@ -1,15 +1,23 @@
 {
 	"folders": [
 		{
+			"name": "homework1",
 			"path": "homework1"
 		},
 		{
+			"name": "CIS-194-Haskell",
 			"path": "."
 		},
 		{
+			"name": "homework5",
 			"path": "homework5"
 		},
 		{
+			"name": "homework2",
+			"path": "homework2"
+		},
+		{
+			"name": "homework6",
 			"path": "homework6"
 		}
 	],
