@@ -9,16 +9,19 @@
 			"path": "."
 		},
 		{
-			"name": "homework5",
-			"path": "homework5"
-		},
-		{
 			"name": "homework2",
 			"path": "homework2"
 		},
 		{
+			"name": "homework5",
+			"path": "homework5"
+		},
+		{
 			"name": "homework6",
 			"path": "homework6"
+		},
+		{
+			"path": "homework7"
 		}
 	],
 	"settings": {}
