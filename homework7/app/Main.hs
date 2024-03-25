@@ -3,6 +3,7 @@ module Main where
 import Editor
 import StringBuffer
 
+main :: IO ()
 main =
   runEditor editor $
     unlines
